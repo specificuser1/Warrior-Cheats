@@ -1,0 +1,16 @@
+{
+  "status": {
+    "global": {"state": "online", "text": "Operational"},
+    "asia": {"state": "online", "text": "Operational"},
+    "europe": {"state": "online", "text": "Operational"},
+    "americas": {"state": "online", "text": "Operational"}
+  },
+  "links": {
+    "buy": "https://your-payment-link.com",
+    "discord": "https://discord.gg/yourinvite",
+    "download": "https://your-download-link.com"
+  },
+  "admin": {
+    "last_updated": ""
+  }
+}
