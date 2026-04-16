@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>WARRIOR CHEATS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">{{ site_name }}</div>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#status">Status</a></li>
+            <li><a href="#community">Community</a></li>
+            <li><a href="{{ config.links.buy }}" target="_blank" class="btn-buy">Buy Now <i class="fas fa-arrow-right"></i></a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>DOMINATE LOBBY WITH <span class="highlight">WARRIOR</span></h1>
+            <p>Premium, safe & optimized gaming solutions for serious players.</p>
+            
+            <div class="hero-stats">
+                <div class="stat"><strong id="member-count">{{ members }}</strong><span>Users</span></div>
+                <div class="stat"><strong>99.9%</strong><span>Uptime</span></div>
+                <div class="stat"><strong>Instant</strong><span>Delivery</span></div>
+            </div>
+            
+            <div class="hero-buttons">
+                <a href="{{ config.links.buy }}" target="_blank" class="btn-buy">🛒 Buy Now <i class="fas fa-arrow-right"></i></a>
+                <a href="{{ config.links.download }}" target="_blank" class="btn-download">Download Tools</a>
+                <a href="{{ config.links.discord }}" target="_blank" class="btn-discord"><i class="fab fa-discord"></i> Join Discord</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>✨ Premium Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Undetectable</h3>
+                <p>Advanced bypass system keeps you safe from bans.</p>
+            </div>            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Lightning Fast</h3>
+                <p>Optimized code for zero lag or performance impact.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-sync-alt"></i>
+                <h3>Auto Updates</h3>
+                <p>Always stay ahead with the latest patches & features.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 Support</h3>
+                <p>Dedicated team ready to assist you anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status Section -->
+    <section id="status" class="status">
+        <h2>Server Status</h2>
+        <div class="status-grid">
+            {% for region, data in config.status.items() %}
+            <div class="status-card" data-region="{{ region }}">
+                <span class="region">{{ region|title }}</span>
+                <span class="badge status-{{ data.state }}">{{ data.text }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="status-note">🔄 Auto-updates via Discord Bot • Last sync: <span id="last-sync">Just now</span></p>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community">
+        <h2>Join {{ members }} Warriors</h2>
+        <p>Connect with our elite community & get exclusive updates</p>
+        <div class="community-links">
+            <a href="{{ config.links.discord }}" target="_blank" class="comm-btn discord"><i class="fab fa-discord"></i> Discord Server</a>
+            <a href="{{ config.links.download }}" target="_blank" class="comm-btn download"><i class="fas fa-download"></i> Get Tools</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 {{ site_name }}. All rights reserved. | <a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="/admin">Admin</a></p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Pass config to JS        window.WARRIOR_CONFIG = {
+            members: "{{ members }}",
+            status: {{ config.status|tojson }}
+        };
+    </script>
+</body>
+</html>
