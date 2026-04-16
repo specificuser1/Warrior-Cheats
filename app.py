@@ -34,7 +34,6 @@ def get_discord_members():
     if not guild_id:
         return "5000+"
     try:
-        # Using Discord Public API (No Bot Token Needed for Basic Info)
         url = f"https://discord.com/api/v9/guilds/{guild_id}/widget.json"
         resp = requests.get(url, timeout=5)
         if resp.status_code == 200:
@@ -43,16 +42,16 @@ def get_discord_members():
             return f"{presence_count}+" if presence_count > 0 else "1000+"
     except:
         pass
-    return "5000+"  # Fallback
+    return "5000+"
 
 # Routes
 @app.route('/')
-def home():    config = load_config()
-    member_count = get_discord_members()
+def home():
+    config = load_config()    member_count = get_discord_members()
     return render_template('index.html', 
                          config=config, 
                          members=member_count,
-                         site_name=os.getenv('SITE_NAME', 'WARRIOR CHEATS'))
+                         site_name=os.getenv('SITE_NAME', 'WARRIOR TOOLS'))
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_login():
@@ -76,7 +75,7 @@ def update_status():
     data = request.json
     config = load_config()
     region = data.get('region')
-    state = data.get('state')  # online, offline, custom
+    state = data.get('state')
     text = data.get('text', 'Operational')
     
     if region in config['status']:
@@ -96,9 +95,8 @@ def update_links():
     return jsonify({'success': True, 'message': 'Links updated!'})
 
 @app.route('/api/discord-sync', methods=['POST'])
-@admin_requireddef discord_sync():
-    # Trigger bot to refresh status (optional webhook)
-    return jsonify({'success': True, 'message': 'Sync signal sent!'})
+@admin_required
+def discord_sync():    return jsonify({'success': True, 'message': 'Sync signal sent!'})
 
 @app.route('/health')
 def health():
