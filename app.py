@@ -52,7 +52,7 @@ def home():    config = load_config()
     return render_template('index.html', 
                          config=config, 
                          members=member_count,
-                         site_name=os.getenv('SITE_NAME', 'WARRIOR TOOLS'))
+                         site_name=os.getenv('SITE_NAME', 'WARRIOR CHEATS'))
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_login():
